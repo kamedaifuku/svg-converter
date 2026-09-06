@@ -1,27 +1,12 @@
 @use '../base/index' as *;
-// サイト全般で使用するCSS変数の設定
-// リキッドレイアウト用の変数の設定もここで実施
-// css変数以外の設定はここには含めない
 :root {
-  // **PC版とスマホ版のリキッドレイアウトの基本サイズ**
-  // SP版 最小値: 表示を配慮する最小幅,　最大値: SP版デザインのアートボード幅
-  --liquid-size-sp: #{clampWithPxToRem(12, 16, $vw-sp-min, $vw-sp-max)};
-  // PC版 最小値: SP版デザインへのブレークポイント,　最大値:コンテンツ幅
-  --liquid-size-pc: #{clampWithPxToRem(10, 16, $vw-pc-min, $vw-pc-max)};
-
-  // **コンテンツ幅**
-  --contents--sp: min(100%, #{rem($vw-sp-max)});
-  --contents--pc: min(100%, #{rem($vw-pc-max)});
-
-  // **サイト全体の基本設定**
-  // -サイト全体の基本サイズ。メディアクエリのブレークポイントは一致させること
-  --liquid-size: var(--liquid-size-sp);
-  --contents: var(--contents--sp);
-  --side-pad: #{rem($side-pad-sp)};
-
-  @include mq() {
-    --liquid-size: var(--liquid-size-pc);
-    --contents: var(--contents--pc);
-    --side-pad: #{rem($side-pad-pc)};
-  }
+  --liquid-size: #{clampWithPxToRem(14, 16, 360, 1440)};
+  --surface: #171b24;
+  --panel: #202631;
+  --raised: #2a3240;
+  --border: #3a4455;
+  --text: #edf1f7;
+  --muted: #aab5c6;
+  --accent: #80a3ff;
+  --action: #3767d9;
 }

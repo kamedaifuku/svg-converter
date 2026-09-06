@@ -1,16 +1,11 @@
 @use '../base/index' as *;
-// CSSによる全体に適用する設定
-:root {
-  // スムーズスクロール
-  scroll-behavior: smooth;
-}
-
-// **文字・背景色などの共通設定**
+:root { color-scheme: dark; }
 body {
-  background: $c-bg;
-  font-size: rem(16);
-  font-family: $f-jp-sans;
-  color: $c-text;
-  line-height: 1.5;
-  letter-spacing: 0;
+  background: var(--surface);
+  color: var(--text);
+  font-family: 'BIZ UDPGothic', 'Yu Gothic UI', 'Hiragino Kaku Gothic ProN', sans-serif;
+  font-size: liquid(14);
+  line-height: 1.65;
 }
+:focus-visible { outline: #{rem(2)} solid var(--accent); outline-offset: #{rem(4)}; box-shadow: none; }
+@media (prefers-reduced-motion: reduce) { :root { scroll-behavior: auto; } }

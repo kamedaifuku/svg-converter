@@ -1,0 +1,26 @@
+@use '../base/index' as *;
+.c-button {
+  display: inline-flex; justify-content: center; align-items: center; gap: liquid(8);
+  min-height: liquid(42); padding: liquid(9) liquid(17); border: rem(1) solid var(--border);
+  border-radius: liquid(6); background: var(--raised); color: var(--text); font-weight: 600;
+  font-size: liquid(13); text-align: center; line-height: 1.5;
+  &:hover:enabled { background: #364256; }
+  &:disabled { opacity: .42; cursor: not-allowed; }
+  &:where(.m-primary) { background: var(--action); border-color: #567ee0; color: #fff; }
+  &:where(.m-primary):hover:enabled { background: #4778ef; }
+  &:where(.m-quiet) { background: transparent; border-color: transparent; color: var(--muted); }
+  &:where(.m-small) { min-height: liquid(32); padding: liquid(5) liquid(8); font-size: liquid(11); }
+  &:where(.m-full) { width: 100%; }
+}
+.c-select {
+  width: 100%; min-height: liquid(40); padding: liquid(8) liquid(10); border: rem(1) solid var(--border);
+  border-radius: liquid(5); background: var(--surface); color: var(--text); font-size: liquid(13);
+  &:where(.m-small) { width: auto; min-height: liquid(32); padding: liquid(4) liquid(8); font-size: liquid(12); }
+}
+.c-field {
+  display: flex; flex-direction: column; gap: liquid(9); font-size: liquid(12); font-weight: 600;
+  &__caption, &__scale { display: flex; justify-content: space-between; gap: liquid(8); }
+  &__scale, &__help { color: var(--muted); font-size: liquid(10); font-weight: 400; }
+  output { color: var(--accent); font-variant-numeric: tabular-nums; }
+  input[type='range'] { width: 100%; height: liquid(18); cursor: pointer; }
+}

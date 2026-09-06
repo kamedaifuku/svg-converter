@@ -1,1 +1,5 @@
-// utilityのSCSSを統括するファイル
+@use '../base/index' as *;
+.u-visually-hidden {
+  position: absolute; width: rem(1); height: rem(1); overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
