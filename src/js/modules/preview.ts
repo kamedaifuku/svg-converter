@@ -10,6 +10,7 @@ export function initPreview() {
   const preview = getElement<HTMLElement>('.js-preview');
   let dimensions = { width: 640, height: 480 };
   let svgUrl = '';
+  let revision = 0;
   let synchronizing = false;
 
   function resize(): void {
@@ -19,8 +20,8 @@ export function initPreview() {
     const availableHeight = Math.max(1, visible.clientHeight - 48);
     const ratio = zoom.value === 'fit' ? Math.min(availableWidth / dimensions.width, availableHeight / dimensions.height, 1) : Number(zoom.value);
     for (const plane of planes) {
-      plane.style.width = `${Math.round(dimensions.width * ratio)}px`;
-      plane.style.height = `${Math.round(dimensions.height * ratio)}px`;
+      plane.style.width = `${Math.max(1, Math.round(dimensions.width * ratio))}px`;
+      plane.style.height = `${Math.max(1, Math.round(dimensions.height * ratio))}px`;
     }
   }
   zoom.addEventListener('change', resize);
@@ -39,6 +40,7 @@ export function initPreview() {
   }, { passive: true });
   new ResizeObserver(resize).observe(preview);
   function clearResult(): void {
+    revision++;
     result.hidden = true;
     result.removeAttribute('src');
     if (svgUrl) URL.revokeObjectURL(svgUrl);
@@ -55,9 +57,11 @@ export function initPreview() {
   }
   async function setResult(svg: string): Promise<void> {
     clearResult();
+    const token = revision;
     svgUrl = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
     result.src = svgUrl;
     await result.decode();
+    if (token !== revision) return;
     result.hidden = false;
     getElement<HTMLElement>('.js-result-empty').hidden = true;
     resize();

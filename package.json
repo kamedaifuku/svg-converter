@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "wasm:prepare": "node scripts/prepare-vtracer.mjs"
+    "wasm:prepare": "node scripts/prepare-vtracer.mjs",
+    "test": "node --test tests/tracer.test.mjs"
   },
   "devDependencies": {
     "@visioncortex/vtracer": "1.0.0-alpha.4",

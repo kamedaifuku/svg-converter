@@ -23,14 +23,17 @@ export async function loadImage(file: File): Promise<LoadedImage> {
     if (!context) throw new Error('このブラウザでは画像を処理できません。');
     context.drawImage(bitmap, 0, 0, width, height);
     const pixels = context.getImageData(0, 0, width, height).data;
+    let hasVisiblePixels = false;
     // VTracer traces solid regions: preserve fully transparent pixels, composite partial alpha onto white.
     for (let index = 0; index < pixels.length; index += 4) {
       const alpha = pixels[index + 3] / 255;
+      if (alpha > 0) hasVisiblePixels = true;
       if (alpha > 0 && alpha < 1) {
         for (let channel = 0; channel < 3; channel++) pixels[index + channel] = Math.round(pixels[index + channel] * alpha + 255 * (1 - alpha));
         pixels[index + 3] = 255;
       }
     }
+    if (!hasVisiblePixels) throw new Error('画像全体が透明です。図形や色がある画像を選んでください。');
     return { name: file.name, width, height, originalWidth: bitmap.width, originalHeight: bitmap.height,
       sourceBytes: file.size, pixels, previewUrl: URL.createObjectURL(file) };
   } finally { bitmap.close(); }

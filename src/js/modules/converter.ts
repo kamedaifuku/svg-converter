@@ -40,6 +40,7 @@ export function initConverter(): void {
     cancel.hidden = !working;
     busy.hidden = !working && !loading;
     fieldset.disabled = working || loading;
+    getElement<HTMLButtonElement>('.js-reset-settings').disabled = working || loading;
     save.disabled = !svg || working || loading;
     copy.disabled = save.disabled;
     getElement<HTMLElement>('.js-preview').setAttribute('aria-busy', String(working || loading));
