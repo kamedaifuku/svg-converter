@@ -5,10 +5,10 @@ TypeScript / Vite / Nunjucks / SCSSを使用しています。React・変換API�
 
 ## 開発
 
-Node.js 22以降、Yarn Classic 1.22.22を使用します。
+Node.js 22以降、Yarn 4.18.0を使用します。`.yarnrc.yml` の `nodeLinker: node-modules` により、依存関係は `node_modules/` に配置します。
 
 ```sh
-yarn install --frozen-lockfile
+yarn install --immutable
 yarn dev
 yarn build
 yarn preview
@@ -17,6 +17,8 @@ yarn test
 
 `yarn build` はTypeScriptのstrict型チェック後に `dist/` を作成します。
 通常のビルドにRustは不要です。`src/js/vendor/vtracer/` の生成済みWasmと接続コードをリポジトリに含めています。
+
+Windowsで依存関係を入れ直すときは、先に `yarn dev` / `yarn preview` をCtrl+Cで停止してください。起動中は `esbuild.exe` がロックされ、インストール時に `EPERM ... unlink` が発生することがあります。
 
 ## 変換エンジン
 
@@ -38,7 +40,7 @@ yarn build
 1. このリポジトリをGitHubまたはGitLabへpushします。
 2. Cloudflare Pagesでリポジトリを連携し、公開対象ブランチを選択します。
 3. ルートディレクトリはリポジトリ直下、ビルドコマンドは `yarn build`、出力ディレクトリは `dist` に設定します。
-4. ビルド環境のNode.jsを22系、Yarnを1.22.22に合わせます。
+4. ビルド環境のNode.jsを22系、Yarnを4.18.0に合わせます。
 5. 公開URLでサンプル変換とSVG保存を確認してください。
 
 `public/_headers` はWasmのContent-Typeを指定します。WorkerもWasmも同一オリジンの静的ファイルとして配信します。
