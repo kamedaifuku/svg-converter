@@ -12,6 +12,14 @@
     "wasm:prepare": "node scripts/prepare-vtracer.mjs",
     "test": "node --test tests/tracer.test.mjs"
   },
+  "dependenciesMeta": {
+    "@parcel/watcher": {
+      "built": true
+    },
+    "esbuild": {
+      "built": true
+    }
+  },
   "devDependencies": {
     "@visioncortex/vtracer": "1.0.0-alpha.4",
     "autoprefixer": "^10.4.20",

@@ -6,6 +6,7 @@ TypeScript / Vite / Nunjucks / SCSSを使用しています。React・変換API�
 ## 開発
 
 Node.js 22以降、Yarn 4.18.0を使用します。`.yarnrc.yml` の `nodeLinker: node-modules` により、依存関係は `node_modules/` に配置します。
+依存パッケージのインストールスクリプトは原則無効とし、ビルドに使う `esbuild` と `@parcel/watcher` のみ `dependenciesMeta` で許可しています。
 
 ```sh
 yarn install --immutable

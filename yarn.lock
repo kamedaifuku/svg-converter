@@ -1090,6 +1090,11 @@ __metadata:
     sass: "npm:^1.86.0"
     typescript: "npm:^5.8.3"
     vite: "npm:^6.3.1"
+  dependenciesMeta:
+    "@parcel/watcher":
+      built: true
+    esbuild:
+      built: true
   languageName: unknown
   linkType: soft
 
