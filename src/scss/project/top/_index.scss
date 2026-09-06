@@ -1,4 +1,5 @@
-// projectのSCSSを統括するファイル
-@use 'sectionName' as sectionName;
-
-@forward 'sectionName';
+@use 'converter';
+@use 'input';
+@use 'settings';
+@use 'preview';
+@use 'guide';

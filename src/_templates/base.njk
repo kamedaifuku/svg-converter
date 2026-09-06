@@ -1,56 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
   <meta charset="UTF-8">
-  <title>{% if pageTitle %}{{ pageTitle }} | {% endif %}{{ siteName }}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="{{ pageDescription }}">
-  <meta name="format-detection" content="telephone=no,email=no,address=no">
-
-  <!-- 正規ページのURL -->
-  <link rel="canonical" href="{{ pageUrl }}">
-
-  <!-- ファビコン -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta name="description" content="PNG・JPEG・WebPをブラウザ内でSVGに変換。画像を送信せず、仕上がりを比較して保存できます。">
+  <meta name="theme-color" content="#171b24">
+  <title>{{ siteName }} | 画像をSVGに変換</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-
-  <!-- OGP -->
-  <meta property="og:url" content="{{ pageUrl }}">
-  <meta property="og:type" content="{{ ogType if ogType else 'website' }}">
-  <meta property="og:title" content="{{ pageTitle if pageTitle else siteName }}">
-  <meta property="og:description" content="{{ pageDescription }}">
-  <meta property="og:site_name" content="{{ siteName }}">
-  <meta property="og:image" content="{{ ogImage if ogImage else siteOgImage }}">
-  <meta property="og:locale" content="ja_JP">
-
-  <!-- OGP Facebook -->
-  <meta property="fb:app_id" content="{{ fbAppId }}">
-
-  <!-- OGP Twitter / X -->
-  <meta name="twitter:card" content="{{ twitterCard if twitterCard else 'summary_large_image' }}">
-  <meta name="twitter:site" content="{{ twitterSite }}">
-  <meta name="twitter:title" content="{{ pageTitle if pageTitle else siteName }}">
-  <meta name="twitter:description" content="{{ pageDescription }}">
-  <meta name="twitter:image" content="{{ ogImage if ogImage else siteOgImage }}">
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- <link rel="preload" as="style" fetchpriority="high" href=""> -->
-
-  <!-- JS (CSSはmain.jsからimport) -->
-  <script type="module" src="/js/main.js"></script>
+  <script type="module" src="/js/main.ts"></script>
 </head>
-
 <body>
   <div class="l-body-wrapper">
     {% include "_templates/partials/header.njk" %}
     {% block content %}{% endblock %}
     {% include "_templates/partials/footer.njk" %}
-  </div><!-- /l-body-wrapper -->
-  {% include "_templates/partials/modals.njk" %}
-  {% include "_templates/partials/svg-mask.njk" %}
+  </div>
 </body>
-
 </html>

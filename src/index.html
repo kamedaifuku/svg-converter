@@ -1,15 +1,52 @@
 {% extends "_templates/base.njk" %}
-
-{# ページ固有のmeta情報 #}
-{% set pageTitle = "" %}
-{% set pageDescription = "" %}
-{% set pageUrl = "" %}
-{% set ogImage = "" %}
-{# ogType のデフォルトは "website"。記事ページは "article" に変更 #}
-{# twitterCard のデフォルトは "summary_large_image" #}
-
 {% block content %}
-<main class="l-main">
-
-</main><!-- /l-main -->
+<main class="l-main p-converter js-converter">
+  <div class="p-converter__intro">
+    <div><h1>画像を、使えるSVGに。</h1><p>読み込んで、整えて、見比べる。ロゴやイラストのベクター変換に。</p></div>
+    <span class="p-converter__format">PNG / JPEG / WebP <span aria-hidden="true">→</span> SVG</span>
+  </div>
+  <section class="p-input js-dropzone" aria-label="画像の読み込み">
+    <div class="p-input__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V3m-5 5 5-5 5 5M4 15v5h16v-5"/></svg></div>
+    <div class="p-input__description"><h2 class="js-file-name">ここに画像をドロップ</h2><p class="js-file-meta">PNG・JPEG・WebP / 1枚ずつ・20 MBまで</p></div>
+    <input class="js-file" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+    <button class="c-button js-choose" type="button">画像を選択</button>
+    <button class="c-button m-quiet js-sample" type="button">サンプルで試す</button>
+  </section>
+  <div class="p-converter__workspace">
+    <section class="p-settings" aria-labelledby="settings-heading">
+      <div class="p-settings__heading"><h2 id="settings-heading">変換設定</h2><button type="button" class="c-button m-quiet m-small js-reset-settings">リセット</button></div>
+      <form class="js-settings">
+        <fieldset class="p-settings__fields js-settings-fields">
+          <legend class="u-visually-hidden">SVG変換の設定</legend>
+          <label class="c-field">プリセット<select class="c-select js-preset"><option value="logo">ロゴ</option><option value="illustration">イラスト</option><option value="line">白黒線画</option><option value="pixel">ピクセルアート</option><option value="custom" disabled>カスタム</option></select></label>
+          <p class="p-settings__hint">素材に近いものを選んでから、仕上がりを調整できます。</p>
+          <label class="c-field">カラーモード<select class="c-select js-setting" name="clustering"><option value="color-cluster">カラー</option><option value="bw">白黒</option></select></label>
+          <label class="c-field">輪郭の表現<select class="c-select js-setting" name="mode"><option value="spline">なめらかな曲線</option><option value="polygon">直線・多角形</option><option value="pixel">ピクセルの形を保持</option></select></label>
+          <label class="c-field js-color-setting"><span class="c-field__caption">色の精度<output class="js-value" data-for="colorPrecision" for="color-precision">5</output></span><input class="js-setting" id="color-precision" name="colorPrecision" type="range" min="1" max="8" value="5"><span class="c-field__scale"><span>色をまとめる</span><span>忠実に</span></span></label>
+          <label class="c-field"><span class="c-field__caption">小さな点の除去<output class="js-value" data-for="filterSpeckle" for="filter-speckle">4</output></span><input class="js-setting" id="filter-speckle" name="filterSpeckle" type="range" min="0" max="16" value="4"><span class="c-field__scale"><span>残す</span><span>取り除く</span></span></label>
+          <label class="c-field js-binary-setting" hidden><span class="c-field__caption">白黒のしきい値<output class="js-value" data-for="binaryThreshold" for="binary-threshold">128</output></span><input class="js-setting" id="binary-threshold" name="binaryThreshold" type="range" min="0" max="255" value="128"><span class="c-field__scale"><span>黒を少なく</span><span>黒を多く</span></span></label>
+          <details class="p-settings__advanced"><summary>詳細設定<span aria-hidden="true">＋</span></summary><div class="p-settings__advanced-fields">
+            <label class="c-field js-color-setting"><span class="c-field__caption">色のレイヤー間隔<output class="js-value" data-for="layerDifference" for="layer-difference">32</output></span><input class="js-setting" id="layer-difference" name="layerDifference" type="range" min="0" max="128" value="32"><span class="c-field__help">大きいほど近い色をまとめます。</span></label>
+            <label class="c-field"><span class="c-field__caption">角の判定しきい値<output class="js-value" data-for="cornerThreshold" for="corner-threshold">60</output></span><input class="js-setting" id="corner-threshold" name="cornerThreshold" type="range" min="0" max="180" value="60"></label>
+            <label class="c-field"><span class="c-field__caption">曲線の区間長<output class="js-value" data-for="lengthThreshold" for="length-threshold">4</output></span><input class="js-setting" id="length-threshold" name="lengthThreshold" type="range" min="1" max="10" step="0.5" value="4"></label>
+            <label class="c-field">座標の小数桁数<select class="c-select js-setting" name="pathPrecision"><option value="1">1桁</option><option value="2">2桁</option><option value="3" selected>3桁（標準）</option><option value="5">5桁</option></select></label>
+            <p class="p-settings__hint">角・区間長の設定は曲線モードで使用します。</p>
+          </div></details>
+        </fieldset>
+      </form>
+      <div class="p-settings__action"><p class="js-trace-size">画像を選ぶと出力サイズを表示</p><button class="c-button m-primary m-full js-convert" type="button" disabled>SVGに変換</button><button class="c-button m-full js-cancel" type="button" hidden>キャンセル</button></div>
+    </section>
+    <section class="p-preview js-preview" data-background="checker" data-view="original" aria-label="変換前後のプレビュー" aria-busy="false">
+      <div class="p-preview__toolbar"><h2>プレビュー</h2><div class="p-preview__tools"><label>背景<select class="c-select m-small js-background"><option value="checker">透明</option><option value="white">白</option><option value="black">黒</option></select></label><label>表示倍率<select class="c-select m-small js-zoom"><option value="fit">全体表示</option><option value="0.5">50%</option><option value="1">100%</option><option value="2">200%</option><option value="4">400%</option></select></label></div></div>
+      <div class="p-preview__tabs" aria-label="表示する画像"><button class="c-button js-preview-tab" type="button" data-view="original" aria-pressed="true">元画像</button><button class="c-button js-preview-tab" type="button" data-view="result" aria-pressed="false">SVG</button></div>
+      <div class="p-preview__comparison">
+        <figure class="p-preview__pane m-original"><figcaption><span>元画像</span><span class="js-source-meta">未選択</span></figcaption><div class="p-preview__stage js-stage" tabindex="0" aria-label="元画像のプレビュー。拡大時はスクロールできます"><div class="p-preview__plane js-plane"><img class="p-preview__image js-original" alt="選択した元画像" hidden></div><div class="p-preview__empty js-original-empty"><svg viewBox="0 0 56 56" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="7" y="7" width="42" height="42" rx="4"/><circle cx="20" cy="20" r="4"/><path d="m8 41 13-13 10 10 7-7 11 11"/></svg><p>画像をここから、<br>ベクターへ。</p><span>上のエリアから画像を選択</span></div></div></figure>
+        <figure class="p-preview__pane m-result"><figcaption><span class="p-preview__svg-label">SVG</span><span>ベクタープレビュー</span></figcaption><div class="p-preview__stage js-stage" tabindex="0" aria-label="SVGのプレビュー。拡大時はスクロールできます"><div class="p-preview__plane js-plane"><img class="p-preview__image js-result" alt="変換したSVG" hidden></div><div class="p-preview__empty js-result-empty"><svg viewBox="0 0 56 56" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 43C10 10 46 46 46 13M10 43V13m36 0v30"/><path d="M7 40h6v6H7zM43 10h6v6h-6z"/><circle cx="10" cy="13" r="3"/><circle cx="46" cy="43" r="3"/></svg><p>輪郭まで、<br>見比べて調整。</p><span>変換したSVGをここに表示</span></div></div></figure>
+      </div>
+      <div class="p-preview__status"><span class="p-preview__spinner js-busy" hidden aria-hidden="true"></span><p class="js-status" role="status" aria-live="polite">画像を選択するか、サンプルでお試しください。</p></div>
+      <div class="p-preview__export"><div><span>変換結果</span><p class="js-result-meta">変換するとサイズを表示</p></div><div class="p-preview__export-buttons"><button class="c-button js-copy" type="button" disabled>コードをコピー</button><button class="c-button m-primary js-save" type="button" disabled>SVGを保存</button></div></div>
+    </section>
+  </div>
+  <details class="p-guide" id="guide"><summary>使い方と変換のポイント<span aria-hidden="true">＋</span></summary><div class="p-guide__content"><div><h2>画像を選び、プリセットから調整</h2><p>画像を読み込んだら「SVGに変換」を押してください。設定を変更した場合は、もう一度変換します。拡大表示では左右のスクロールが連動します。</p></div><div><h2>ロゴや色数の少ないイラストに</h2><p>写真も変換できますが、質感は変わり、SVGの容量が増えることがあります。文字は編集可能なテキストではなく、輪郭の形になります。</p></div><div><h2>サイズと透明部分について</h2><p>入力は2400万画素まで。処理時は長辺1600 px・約160万画素以内に縮小します。カラーでは完全に透明な部分を保持し、半透明部分は白背景に合成します。白黒では背景を透明にします。アニメーション画像は静止画として扱います。</p></div></div></details>
+</main>
 {% endblock %}

@@ -1,0 +1,12 @@
+@use '../../base/index' as *;
+.p-input {
+  display: flex; align-items: center; gap: liquid(18); padding: liquid(20) liquid(24);
+  border: rem(1) dashed #627089; border-radius: liquid(8); background: #1d2431;
+  &:where(.is-dragging) { border-color: var(--accent); background: #293b60; }
+  &__icon { display: flex; align-items: center; justify-content: center; width: liquid(42); height: liquid(42); color: var(--accent); flex-shrink: 0; }
+  &__icon svg { width: liquid(28); height: liquid(28); }
+  &__description { flex: 1; min-width: 0; }
+  h2 { font-size: liquid(14); font-weight: 600; overflow-wrap: anywhere; }
+  p { font-size: liquid(11); color: var(--muted); margin-top: liquid(4); }
+  @media (width < 48rem) { flex-wrap: wrap; gap: liquid(12); padding: liquid(18); &__description { flex-basis: calc(100% - #{liquid(60)}); } }
+}

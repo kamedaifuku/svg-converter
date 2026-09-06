@@ -1,14 +1,27 @@
 {
-  "name": "vite-flocss-template",
+  "name": "svg-converter",
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "packageManager": "yarn@4.18.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "wasm:prepare": "node scripts/prepare-vtracer.mjs",
+    "test": "node --test tests/tracer.test.mjs"
+  },
+  "dependenciesMeta": {
+    "@parcel/watcher": {
+      "built": true
+    },
+    "esbuild": {
+      "built": true
+    }
   },
   "devDependencies": {
+    "@visioncortex/vtracer": "1.0.0-alpha.4",
     "autoprefixer": "^10.4.20",
     "nunjucks": "^3.2.4",
     "postcss": "^8.5.3",

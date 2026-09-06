@@ -1,0 +1,12 @@
+@use '../../base/index' as *;
+.p-guide {
+  margin-top: liquid(24); color: var(--muted); scroll-margin-top: liquid(90);
+  summary { display: flex; justify-content: space-between; padding-block: liquid(12); font-size: liquid(12); list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  &[open] summary span { transform: rotate(45deg); }
+  &__content { display: flex; gap: liquid(36); padding-block: liquid(16); }
+  &__content > div { flex: 1; }
+  h2 { font-size: liquid(13); margin-bottom: liquid(10); color: var(--text); }
+  p { font-size: liquid(12); line-height: 1.9; }
+  @media (width < 48rem) { &__content { flex-direction: column; gap: liquid(20); } }
+}

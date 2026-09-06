@@ -1,41 +1,11 @@
 @use '../base/index' as *;
-// ヘッダーテンプレ
-
-// ヘッダー
 .c-header {
-  display: flex;
-  justify-content: center;
-  padding-block: liquid() liquid();
-  padding-inline: var(--side-pad);
-  background: transparent;
-}
-
-// ヘッダー内部
-.c-header__inner {
-  // display gridへの置換を検討
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: liquid();
-  width: var(--contents);
-  min-height: liquid();
-  padding-inline: 0;
-  @include mq() {
-    min-height: liquid();
-  }
-}
-
-// ヘッダータイトル(サイトロゴ)
-.c-header__logo {
-  width: liquid(130);
-  aspect-ratio: 211/ 48;
-  font-size: liquid();
-  @include mq() {
-    width: liquid(211);
-  }
-}
-
-// ヘッダーメニュー(nav要素)
-.c-header__nav {
-  position: relative;
+  display: flex; align-items: center; justify-content: space-between; gap: liquid(20);
+  padding: liquid(17) liquid(36); background: var(--surface); border-bottom: rem(1) solid var(--border);
+  &__brand { display: flex; align-items: center; gap: liquid(12); font-size: liquid(19); font-weight: 700; text-decoration: none; }
+  &__mark { width: liquid(32); height: liquid(32); }
+  &__aside { display: flex; align-items: center; gap: liquid(28); color: var(--muted); font-size: liquid(12); }
+  &__privacy { display: flex; align-items: center; gap: liquid(8); }
+  &__privacy::before { content: ''; width: liquid(6); height: liquid(6); border-radius: 50%; background: #8bcebc; }
+  @media (width < 48rem) { padding: liquid(16); &__privacy { display: none; } }
 }

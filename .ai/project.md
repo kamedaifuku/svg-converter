@@ -2,6 +2,10 @@
 
 このプロジェクトを進める上でaiが参照するべきファイルをまとめている。
 
+## このツールの実装方針
+
+@.ai/implementation.md
+
 ## コーディングルール
 
 @.ai/cording-rule/default.md

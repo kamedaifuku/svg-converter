@@ -1,0 +1,53 @@
+@use '../../base/index' as *;
+.p-preview {
+  display: flex; flex-direction: column; min-width: 0; flex: 1; background: var(--panel);
+  border: rem(1) solid var(--border); border-radius: liquid(8); overflow: hidden;
+  &__toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: liquid(12); padding: liquid(14) liquid(20); border-bottom: rem(1) solid var(--border); }
+  &__toolbar h2 { font-size: liquid(14); }
+  &__tools { display: flex; gap: liquid(16); }
+  &__tools label { display: flex; align-items: center; gap: liquid(8); font-size: liquid(11); color: var(--muted); }
+  &__tabs { display: none; }
+  &__comparison { display: flex; flex: 1; min-height: liquid(380); }
+  &__pane { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+  &__pane + &__pane { border-left: rem(1) solid var(--border); }
+  &__pane figcaption { display: flex; align-items: center; justify-content: space-between; gap: liquid(10); padding: liquid(12) liquid(18); font-size: liquid(10); color: var(--muted); background: #1c222d; }
+  &__pane figcaption > :first-child { color: var(--text); font-weight: 600; font-size: liquid(12); }
+  &__pane figcaption > .p-preview__svg-label { color: var(--accent); }
+  &__stage { position: relative; display: flex; flex: 1; align-items: safe center; justify-content: safe center; overflow: auto; height: liquid(410); min-height: liquid(350); padding: liquid(24); background: #181e28; }
+  &__plane { flex: 0 0 auto; position: relative; }
+  &__plane:has(img[hidden]) { display: none; }
+  &__image { display: block; width: 100%; height: 100%; max-inline-size: none; object-fit: fill; }
+  &:where([data-background='checker']) &__plane { background-color: #e5e8ee; background-image: conic-gradient(#cbd1dc 25%, transparent 0 50%, #cbd1dc 0 75%, transparent 0); background-size: liquid(20) liquid(20); }
+  &:where([data-background='white']) &__plane { background: #fff; }
+  &:where([data-background='black']) &__plane { background: #000; }
+  &__empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: liquid(16); color: #9aa8be; }
+  &__empty svg { width: liquid(56); height: liquid(56); margin-bottom: liquid(8); color: #647c9e; }
+  &__empty p { font-size: liquid(19); line-height: 1.8; letter-spacing: .04em; }
+  &__empty span { font-size: liquid(10); color: var(--muted); }
+  &__status { display: flex; align-items: center; gap: liquid(10); padding: liquid(12) liquid(18); min-height: liquid(48); border-top: rem(1) solid var(--border); background: #1c222d; }
+  &__status p { font-size: liquid(11); color: var(--muted); }
+  &__status p:where(.is-error) { color: #ffb7b7; }
+  &__spinner { flex-shrink: 0; width: liquid(14); height: liquid(14); border: rem(2) solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: preview-spin 1s linear infinite; }
+  &__export { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: liquid(16); padding: liquid(20); border-top: rem(1) solid var(--border); }
+  &__export span { font-size: liquid(10); color: var(--muted); }
+  &__export p { font-size: liquid(12); margin-top: liquid(4); font-variant-numeric: tabular-nums; }
+  &__export-buttons { display: flex; gap: liquid(10); }
+  @media (width < 64rem) {
+    &__toolbar { padding-inline: liquid(14); }
+    &__tools { gap: liquid(8); }
+    &__pane figcaption { flex-wrap: wrap; }
+  }
+  @media (width < 48rem) {
+    &__tabs { display: flex; padding: liquid(10); gap: liquid(8); border-bottom: rem(1) solid var(--border); }
+    &__tabs button { flex: 1; }
+    &__tabs button[aria-pressed='true'] { background: #30466e; border-color: var(--accent); }
+    &:where([data-view='original']) &__pane:where(.m-result), &:where([data-view='result']) &__pane:where(.m-original) { display: none; }
+    &__pane + &__pane { border-left: 0; }
+    &__stage { flex: none; height: liquid(360); }
+    &__comparison { min-height: 0; }
+    &__export-buttons { width: 100%; }
+    &__export-buttons button { flex: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) { &__spinner { animation: none; } }
+}
+@keyframes preview-spin { to { transform: rotate(360deg); } }

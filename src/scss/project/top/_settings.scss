@@ -1,0 +1,17 @@
+@use '../../base/index' as *;
+.p-settings {
+  flex: 0 0 liquid(270); background: var(--panel); border: rem(1) solid var(--border); border-radius: liquid(8);
+  display: flex; flex-direction: column;
+  &__heading { display: flex; align-items: center; justify-content: space-between; padding: liquid(14) liquid(20); border-bottom: rem(1) solid var(--border); }
+  &__heading h2 { font-size: liquid(14); }
+  &__fields { display: flex; flex-direction: column; gap: liquid(20); padding: liquid(20); border: 0; min-width: 0; }
+  &__hint { font-size: liquid(11); color: var(--muted); line-height: 1.8; }
+  &__advanced { border-top: rem(1) solid var(--border); padding-top: liquid(14); }
+  &__advanced summary { display: flex; justify-content: space-between; font-size: liquid(12); list-style: none; }
+  &__advanced summary::-webkit-details-marker { display: none; }
+  &__advanced[open] summary span { transform: rotate(45deg); }
+  &__advanced-fields { display: flex; flex-direction: column; gap: liquid(20); padding-top: liquid(20); }
+  &__action { display: flex; flex-direction: column; gap: liquid(10); padding: liquid(20); margin-top: auto; border-top: rem(1) solid var(--border); }
+  &__action p { color: var(--muted); font-size: liquid(10); text-align: center; }
+  @media (width < 48rem) { flex-basis: auto; }
+}

@@ -1,0 +1,16 @@
+@use '../../base/index' as *;
+.p-converter {
+  width: 100%; max-width: liquid(1680); margin-inline: auto; padding: liquid(30) liquid(36);
+  &__intro { display: flex; align-items: center; justify-content: space-between; gap: liquid(24); margin-bottom: liquid(24); }
+  &__intro h1 { font-size: liquid(26); font-weight: 700; letter-spacing: .03em; }
+  &__intro p { margin-top: liquid(8); color: var(--muted); font-size: liquid(12); }
+  &__format { color: var(--muted); font-size: liquid(12); white-space: nowrap; }
+  &__format span { color: var(--accent); margin-inline: liquid(8); }
+  &__workspace { display: flex; align-items: stretch; gap: liquid(20); margin-top: liquid(20); }
+  @media (width < 64rem) { &__format { display: none; } }
+  @media (width < 48rem) {
+    padding: liquid(24) liquid(16);
+    &__intro h1 { font-size: liquid(23); }
+    &__workspace { flex-direction: column; }
+  }
+}
