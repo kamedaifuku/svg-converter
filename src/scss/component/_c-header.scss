@@ -1,0 +1,41 @@
+@use '../base/index' as *;
+// ヘッダーテンプレ
+
+// ヘッダー
+.c-header {
+  display: flex;
+  justify-content: center;
+  padding-block: liquid() liquid();
+  padding-inline: var(--side-pad);
+  background: transparent;
+}
+
+// ヘッダー内部
+.c-header__inner {
+  // display gridへの置換を検討
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: liquid();
+  width: var(--contents);
+  min-height: liquid();
+  padding-inline: 0;
+  @include mq() {
+    min-height: liquid();
+  }
+}
+
+// ヘッダータイトル(サイトロゴ)
+.c-header__logo {
+  width: liquid(130);
+  aspect-ratio: 211/ 48;
+  font-size: liquid();
+  @include mq() {
+    width: liquid(211);
+  }
+}
+
+// ヘッダーメニュー(nav要素)
+.c-header__nav {
+  position: relative;
+}

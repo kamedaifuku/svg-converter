@@ -1,0 +1,40 @@
+@use '../base/index' as *;
+// フッター
+
+.c-footer {
+  display: flex;
+  justify-content: center;
+  padding-block: liquid();
+  padding-inline: var(--side-pad);
+  background: transparent;
+}
+
+// フッター内部
+.c-footer__inner {
+  // display gridへの置換を検討
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: liquid();
+  width: var(--contents);
+  min-height: liquid();
+  padding-inline: 0;
+  @include mq() {
+    min-height: liquid();
+  }
+}
+
+// フッタータイトル(サイトロゴ)
+.c-footer__logo {
+  width: liquid(130);
+  aspect-ratio: 211/ 48;
+  font-size: liquid();
+  @include mq() {
+    width: liquid(211);
+  }
+}
+
+// フッターメニュー(nav要素)
+.c-footer__nav {
+  position: relative;
+}

@@ -1,0 +1,79 @@
+@use '../base/index' as *;
+// ハンバーガーボタン
+.c-hamburger {
+  --height: max(2px, #{liquid(1)});
+  --span-gap: #{liquid(4.5)};
+  display: inline-grid;
+  grid-template-columns: auto;
+  justify-items: center;
+  grid-template-areas:
+    'icon'
+    'label';
+  font-size: liquid(18);
+  padding-inline: liquid(1);
+  @include mq() {
+    font-size: liquid(22);
+  }
+
+  &:has(:focus-within) {
+    outline: 2px solid $c-accent;
+  }
+}
+
+.c-hamburger__icon {
+  grid-area: icon;
+  display: grid;
+  place-items: center;
+  width: liquid();
+  aspect-ratio: 1/ 1;
+
+  & > span {
+    grid-area: 1/ 1/ -1/ -1;
+    position: relative;
+    width: 100%;
+    height: var(--height);
+    border-radius: 100vmax;
+    background: currentColor;
+    transition: translate 0.25s 0.25s ease-in-out, rotate 0.25s ease-in-out,
+      opacity 0s 0.25s ease-in-out;
+
+    &:nth-child(1) {
+      top: calc(var(--span-gap) * -1);
+    }
+
+    &:nth-child(3) {
+      bottom: calc(var(--span-gap) * -1);
+    }
+  }
+
+  :where(.c-hamburger:has(:checked)) & {
+    & > span {
+      transition: translate 0.25s ease-in-out, rotate 0.25s 0.25s ease-in-out,
+        opacity 0s 0.25s ease-in-out;
+      &:nth-child(1) {
+        translate: 0 var(--span-gap);
+        rotate: 45deg;
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+      }
+
+      &:nth-child(3) {
+        translate: 0 calc(var(--span-gap) * -1);
+        rotate: -45deg;
+      }
+    }
+  }
+}
+
+.c-hamburger__input {
+  grid-area: icon;
+  opacity: 0;
+  z-index: -1;
+}
+
+.c-hamburger__label {
+  font-size: liquid(8);
+  line-height: 1.1;
+}

@@ -1,0 +1,4 @@
+// projectのSCSSを統括するファイル
+@use 'sectionName' as sectionName;
+
+@forward 'sectionName';

@@ -1,0 +1,46 @@
+@use '../base/index' as *;
+// グローバルナビテンプレ
+
+// グローバルナビ
+// ※SPはハンバーガーメニューで表示
+.c-global-nav {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.c-global-nav__list {
+  display: flex;
+  gap: liquid(8) liquid();
+  padding-block: liquid();
+  padding-inline: liquid();
+  font-size: liquid();
+
+  // SP版のハンバーガーメニュー表示
+  @include mq() {
+    flex-flow: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(var(--contents), 90%);
+    height: 100vh;
+    background: $c-base;
+  }
+
+  //a要素のデフォのスタイリング
+  & a:not([class]) {
+    text-decoration: none;
+    @include mq(hover) {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// ハンバーガーメニュー用
+.c-global-nav__switch {
+  @include mq() {
+    display: none;
+  }
+}

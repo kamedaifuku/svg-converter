@@ -1,0 +1,15 @@
+// baseのSCSSを統括する
+// baseではSCSS独自の変数・関数・mixinを定義
+@use 'functions' as functions;
+@use 'mixin' as mixin;
+@use 'colors' as colors;
+@use 'fonts' as fonts;
+@use 'contents-sizes' as contents-sizes;
+@use 'z-index' as z-index;
+
+@forward 'functions';
+@forward 'mixin';
+@forward 'colors';
+@forward 'contents-sizes';
+@forward 'fonts';
+@forward 'z-index';

@@ -1,0 +1,29 @@
+@use '../base/index' as *;
+// 各要素に対するreset.cssを補完する設定を定義
+// imgと画像として使うsvgは原則親要素のアスペクト比を継承
+// news記事はhtmlのwidth属性, height属性を用いるため、適用除外
+:where(img),
+:where(svg[role='img']) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+// aタグの基本設定
+a {
+  text-decoration: none;
+}
+
+// button基本設定
+button {
+  box-sizing: border-box;
+}
+
+// detailsのマーカーを消す
+summary {
+  list-style: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}

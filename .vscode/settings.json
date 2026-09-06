@@ -1,0 +1,8 @@
+{
+  "workbench.preferredLightColorTheme": "Light Modern",
+  "workbench.colorTheme": "Dark Modern",
+  "blockman.n04ColorComboPreset": "Classic Dark 1 (Gradients)",
+  "files.associations": {
+    "*.njk": "html"
+  }
+}

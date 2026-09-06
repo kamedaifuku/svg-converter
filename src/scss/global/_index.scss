@@ -1,0 +1,5 @@
+// globalのSCSSを統括する
+@use 'css-vars';
+@use 'root-and-body';
+@use 'elements-default';
+@use 'hidden-reCaptcha';

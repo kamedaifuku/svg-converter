@@ -1,0 +1,42 @@
+@use '../../base/index' as *;
+// セクションテンプレ
+
+// セクション
+.p-sectionName {
+  display: flex;
+  justify-content: center;
+  padding-block: em() em();
+  padding-inline: var(--side-pad);
+  background: transparent;
+}
+
+// セクション内部
+.p-sectionName__inner {
+  // display gridへの置換を検討
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: em();
+  width: var(--contents);
+}
+
+// セクションタイトル（色・文字サイズなどは必要に応じてコンポーネント化）
+.p-sectionName__title {
+  margin-top: liquid();
+
+  @include mq() {
+    margin-top: liquid();
+  }
+}
+
+.p-sectionName__contents {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin-top: liquid();
+  padding: em();
+
+  @include mq() {
+    margin-top: liquid();
+  }
+}

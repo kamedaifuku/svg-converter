@@ -1,0 +1,16 @@
+@use '../base/index' as *;
+// CSSによる全体に適用する設定
+:root {
+  // スムーズスクロール
+  scroll-behavior: smooth;
+}
+
+// **文字・背景色などの共通設定**
+body {
+  background: $c-bg;
+  font-size: rem(16);
+  font-family: $f-jp-sans;
+  color: $c-text;
+  line-height: 1.5;
+  letter-spacing: 0;
+}

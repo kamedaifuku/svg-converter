@@ -1,0 +1,54 @@
+@use 'sass:map';
+// mixin
+// SPファーストの場合はtrue, PCファーストの場合はfalse
+$is-sp-first: false;
+
+// ブレークポイントの値を変えたい場合はここを変更する。
+$break-points: (
+  'sm': 576,
+  'md': 768,
+  'lg': 1024,
+  'xl': 1440,
+);
+
+@function maxSize($key) {
+  @return '(width >= #{map.get($break-points, $key)}px)';
+}
+
+@function minSize($key) {
+  @return '(width < #{map.get($break-points, $key)}px)';
+}
+
+@function rangeRule($min-key, $max-key) {
+  @if $is-sp-first {
+    @return maxSize($min-key);
+  } @else {
+    @return minSize($max-key);
+  }
+}
+
+@function defaultMqKey() {
+  @if $is-sp-first {
+    @return 'pc';
+  } @else {
+    @return 'sp';
+  }
+}
+
+$rules: (
+  'sm': minSize('sm'),
+  'md': rangeRule('sm', 'md'),
+  'lg': rangeRule('md', 'lg'),
+  'xl': rangeRule('lg', 'xl'),
+  'xxl': maxSize('xl'),
+  'sp': minSize('md'),
+  'pc': maxSize('md'),
+  'hover': '(any-hover: hover)',
+  'noHover': '(any-hover: none)',
+);
+
+@mixin mq($key: defaultMqKey()) {
+  @media #{map.get($rules, $key)} {
+    @content;
+  }
+}

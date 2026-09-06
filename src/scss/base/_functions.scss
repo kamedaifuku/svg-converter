@@ -1,0 +1,88 @@
+@use 'sass:map';
+@use 'sass:math';
+// functions
+
+// -----------------------
+// 共用変数
+// -----------------------
+// 汎用：四捨五入の桁数定義
+$exponent: 3;
+$roundFactor: pow(10, $exponent);
+
+// px→rem変換係数(0.0625)
+$pxToRemFactor: math.div(1, 16);
+
+// -----------------------
+// rem em設定用
+// -----------------------
+// remサイズ指定用(px → rem 変換)
+@function rem($px: 16) {
+  @if $px != 0 {
+    @return $px * $pxToRemFactor * 1rem;
+  } @else {
+    @return 0;
+  }
+}
+
+// emサイズ指定用（px → em 変換）
+@function em($setPx: 16, $basePx: 16) {
+  @if $setPx != 0 and $basePx > 0 {
+    $emValue: math.div($setPx, $basePx) * 1em;
+    @return math.div(math.round($emValue * $roundFactor), $roundFactor);
+  } @else {
+    @return 0;
+  }
+}
+
+// -----------------------
+// clamp()生成用
+// -----------------------
+// **ビューポートの引数初期値
+$defaultVpMin: 768;
+$defaultVpMax: 1200;
+
+// **生成関数
+@function clampWithPxToRem(
+  $minSize,
+  $maxSize,
+  $minVp: $defaultVpMin,
+  $maxVp: $defaultVpMax
+) {
+  @if ($maxVp - $minVp) ==0 {
+    @warn '【clampWithPxToRem】ビューポート同値により0除算発生のため、1remを返り値にしています';
+    @return 1rem;
+  }
+
+  // 傾きと切片取得
+  $slope: math.div(($maxSize - $minSize), ($maxVp - $minVp));
+  $intercept: $minSize - ($minVp * $slope);
+  $outputSlope: math.div(
+      math.round($slope * $roundFactor * 100),
+      $roundFactor
+    ) *
+    1vw;
+  $outputIntercept: math.div(
+    math.round($intercept * $roundFactor * $pxToRemFactor * 1rem),
+    $roundFactor
+  );
+  @return clamp(
+    $minSize * $pxToRemFactor * 1rem,
+    $outputSlope + $outputIntercept,
+    $maxSize * $pxToRemFactor * 1rem
+  );
+}
+
+// -----------------------
+// px数を既定のclamp()用CSS変数に乗算する
+// -----------------------
+// **CSS変数
+$liquidSizeCssVars: (
+  'base': '--liquid-size',
+  'pc': '--liquid-size-pc',
+  'sp': '--liquid-size-sp',
+);
+// **生成関数
+@function liquid($multiplier: 16, $cssVar: 'base') {
+  $selectedVar: #{map.get($liquidSizeCssVars, $cssVar)};
+  @return calc(var($selectedVar) * #{$multiplier * $pxToRemFactor});
+}
