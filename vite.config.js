@@ -11,7 +11,7 @@ const SRC_DIR = resolve(__dirname, 'src');
  * Nunjucksテンプレートを処理するViteプラグイン
  * @param {Record<string, unknown>} variables - テンプレートに渡す共通変数
  */
-const nunjucksPlugin = (variables = {}) => {
+function nunjucksPlugin(variables = {}) {
   let env;
 
   return {
@@ -32,7 +32,7 @@ const nunjucksPlugin = (variables = {}) => {
       }
     },
   };
-};
+}
 
 export default defineConfig({
   root: 'src',
@@ -55,7 +55,7 @@ export default defineConfig({
   },
   plugins: [
     nunjucksPlugin({
-      siteName: '**site name**',
+      siteName: 'SVG変換室',
       siteUrl: '',
     }),
   ],
